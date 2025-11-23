@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 // components
@@ -7,6 +7,24 @@ import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
 export default function Landing() {
+  // ----------------------------
+  // PAGINATION DYNAMIQUE
+  // ----------------------------
+  const data = Array.from({ length: 10 }, (_, i) => i + 1); // fake data (30 cards)
+  const itemsPerPage = 3;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
+  const goToPage = (page) => {
+    if (page < 1 || page > totalPages) return;
+    setCurrentPage(page);
+  };
+
+  // SELECT DATA FOR CURRENT PAGE
+  const indexOfLast = currentPage * itemsPerPage;
+  const indexOfFirst = indexOfLast - itemsPerPage;
+  const currentItems = data.slice(indexOfFirst, indexOfLast);
   return (
     <>
       <Navbar transparent />
@@ -16,7 +34,7 @@ export default function Landing() {
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
               backgroundImage:
-                "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')",
+                "url('https://world.edu/wp-content/uploads/2020/02/giphy-copy.gif')",
             }}
           >
             <span
@@ -64,50 +82,115 @@ export default function Landing() {
         <section className="pb-20 bg-blueGray-200 -mt-24">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap">
-              <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                  <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
-                      <i className="fas fa-award"></i>
-                    </div>
-                    <h6 className="text-xl font-semibold">Awarded Agency</h6>
-                    <p className="mt-2 mb-4 text-blueGray-500">
-                      Divide details about your product or agency work into
-                      parts. A paragraph describing a feature will be enough.
-                    </p>
+              {currentItems.map((item) => (
+                <div
+                  key={item}
+                  className="w-full md:w-4/12 px-4 mr-auto ml-auto"
+                >
+                  <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-lightBlue-500">
+                    <img
+                      alt="..."
+                      src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1051&q=80"
+                      className="w-full align-middle rounded-t-lg"
+                    />
+                    <blockquote className="relative p-8 mb-4">
+                      <svg
+                        preserveAspectRatio="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 583 95"
+                        className="absolute left-0 w-full block h-95-px -top-94-px"
+                      >
+                        <polygon
+                          points="-30,95 583,95 583,65"
+                          className="text-lightBlue-500 fill-current"
+                        ></polygon>
+                      </svg>
+                      <h4 className="text-xl font-bold text-white">
+                        Card {item}
+                      </h4>
+                      <p className="text-md font-light mt-2 text-white">
+                        Example card content for pagination.
+                      </p>
+                    </blockquote>
                   </div>
                 </div>
-              </div>
+              ))}
+            </div>
 
-              <div className="w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                  <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-lightBlue-400">
-                      <i className="fas fa-retweet"></i>
-                    </div>
-                    <h6 className="text-xl font-semibold">Free Revisions</h6>
-                    <p className="mt-2 mb-4 text-blueGray-500">
-                      Keep you user engaged by providing meaningful information.
-                      Remember that by this time, the user is curious.
-                    </p>
-                  </div>
-                </div>
-              </div>
+            {/* ----------------------------
+                PAGINATION SECTION
+            ---------------------------- */}
+            <div className="flex justify-center mt-10">
+              <nav className="block">
+                <ul className="flex pl-0 rounded list-none flex-wrap">
+                  {/* FIRST PAGE */}
+                  <li>
+                    <button
+                      onClick={() => goToPage(1)}
+                      disabled={currentPage === 1}
+                      className="flex items-center justify-center w-8 h-8 mx-1 rounded-full 
+                      border border-sky-500 text-sky-500 bg-white disabled:opacity-30"
+                    >
+                      «
+                    </button>
+                  </li>
 
-              <div className="pt-6 w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                  <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-emerald-400">
-                      <i className="fas fa-fingerprint"></i>
-                    </div>
-                    <h6 className="text-xl font-semibold">Verified Company</h6>
-                    <p className="mt-2 mb-4 text-blueGray-500">
-                      Write a few lines about each one. A paragraph describing a
-                      feature will be enough. Keep you user engaged!
-                    </p>
-                  </div>
-                </div>
-              </div>
+                  {/* PREV */}
+                  <li>
+                    <button
+                      onClick={() => goToPage(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className="flex items-center justify-center w-8 h-8 mx-1 rounded-full 
+                      border border-sky-500 text-sky-500 bg-white disabled:opacity-30"
+                    >
+                      ‹
+                    </button>
+                  </li>
+
+                  {/* PAGE NUMBERS */}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <li key={page}>
+                        <button
+                          onClick={() => goToPage(page)}
+                          className={`flex items-center justify-center w-8 h-8 mx-1 rounded-full border
+                          ${
+                            currentPage === page
+                              ? "bg-sky-500 text-white border-sky-500"
+                              : "bg-white text-sky-500 border-sky-500"
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      </li>
+                    )
+                  )}
+
+                  {/* NEXT */}
+                  <li>
+                    <button
+                      onClick={() => goToPage(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className="flex items-center justify-center w-8 h-8 mx-1 rounded-full 
+                      border border-sky-500 text-sky-500 bg-white disabled:opacity-30"
+                    >
+                      ›
+                    </button>
+                  </li>
+
+                  {/* LAST PAGE */}
+                  <li>
+                    <button
+                      onClick={() => goToPage(totalPages)}
+                      disabled={currentPage === totalPages}
+                      className="flex items-center justify-center w-8 h-8 mx-1 rounded-full 
+                      border border-sky-500 text-sky-500 bg-white disabled:opacity-30"
+                    >
+                      »
+                    </button>
+                  </li>
+                </ul>
+              </nav>
             </div>
 
             <div className="flex flex-wrap items-center mt-32">

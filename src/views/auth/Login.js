@@ -45,6 +45,38 @@ export default function Login() {
                   <small>Or sign in with credentials</small>
                 </div>
                 <form>
+                  <div className="flex gap-4">
+                    <div className="relative w-1/2 mb-3">
+                      <label
+                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        htmlFor="username"
+                      >
+                        UserName
+                      </label>
+                      <input
+                        type="text"
+                        id="username"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        placeholder="UserName"
+                      />
+                    </div>
+
+                    <div className="relative w-1/2 mb-3 ml-3">
+                      <label
+                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2 "
+                        htmlFor="lastname"
+                      >
+                        LastName
+                      </label>
+                      <input
+                        type="text"
+                        id="lastname"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        placeholder="LastName"
+                      />
+                    </div>
+                  </div>
+
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -58,7 +90,6 @@ export default function Login() {
                       placeholder="Email"
                     />
                   </div>
-
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -98,10 +129,7 @@ export default function Login() {
             </div>
             <div className="flex flex-wrap mt-6 relative">
               <div className="w-1/2">
-                <Link 
-                  to="/auth/forget"
-                  className="text-blueGray-200"
-                >
+                <Link to="/auth/forget" className="text-blueGray-200">
                   <small>Forgot password?</small>
                 </Link>
               </div>
