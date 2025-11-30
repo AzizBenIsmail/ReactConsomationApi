@@ -2512,6 +2512,10 @@ select {
   width: 4rem;
 }
 
+.w-20 {
+  width: 15rem;
+}
+
 .w-auto {
   width: auto;
 }
